@@ -1,0 +1,30 @@
+% Includes ground effect, by modifying the Thrust force and roll, pitch
+% torques
+
+% input     ~ usual thrust and torques; separation btwn airframes
+% outputs   ~ updated thrust force and torques
+
+% primarily, ground effect is modeled as-
+% F/F0 = 1/(1 - rho*(R/4Z)^2)
+% tau_psi does not get affected yet....read more papers
+
+function out = ground_effect(fnt,delta_p,uav_P)
+    
+    F           = fnt(1);
+    tau_phi     = fnt(2);
+    tau_theta   = fnt(3);
+    tau_psi     = fnt(4);
+    del_x = delta_p(1);
+    del_y = delta_p(2);
+    del_z = delta_p(3);
+
+    rho = 1;    % coefficient to consider uncertain airflow due to multiple rotors
+
+    if(del_z <= 4*R)
+        F = F/(1-rho*(R/del_z)^2);
+        tau_phi = tau_phi/(1-rho*(R/del_z)^2);
+        tau_theta = tau_theta/(1-rho*(R/del_z)^2);
+    end
+
+    out = [F;tau_phi;tau_theta;tau_psi];
+end

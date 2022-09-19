@@ -50,7 +50,7 @@ uav_P.wind_n = 0;
 uav_P.wind_e = 0;
 uav_P.wind_d = 0;
 
-x0_ms.pn0 = 20;
+x0_ms.pn0 = 19;
 x0_ms.pe0 = 20;
 x0_ms.pd0 = 20;
 
